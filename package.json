@@ -1,0 +1,25 @@
+{
+  "name": "service-project-scaffholding",
+  "version": "0.0.1",
+  "private": true,
+  "description": "New Swagger API Project",
+  "keywords": [],
+  "author": "",
+  "license": "",
+  "main": "app.js",
+  "dependencies": {
+    "config": "^3.2.4",
+    "express": "^4.17.1",
+    "swagger-tools": "^0.10.4"
+  },
+  "devDependencies": {
+    "eslint": "^6.6.0",
+    "eslint-config-google": "^0.14.0",
+    "should": "^13.2.3",
+    "supertest": "^4.0.2"
+  },
+  "scripts": {
+    "start": "node app.js",
+    "test": "swagger project test"
+  }
+}
