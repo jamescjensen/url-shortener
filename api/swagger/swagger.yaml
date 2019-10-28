@@ -1,41 +1,93 @@
 swagger: "2.0"
 info:
   version: "0.0.1"
-  title: "Hello World App"
+  title: "URL Shortener"
 # basePath prefixes all resource paths 
 basePath: /
 # 
 schemes:
-  # tip: remove http to make production-grade
   - http
   - https
-# format of bodies a client can send (Content-Type)
-consumes:
-  - application/json
-# format of the responses to the client (Accepts)
 produces:
   - application/json
 paths:
-  /hello:
-    # binds a127 app logic to a route
-    x-swagger-router-controller: hello_world
-    get:
-      description: Returns 'Hello' to the caller
-      # used as the method name of the controller
-      operationId: hello
+  /generate-url:
+    x-swagger-router-controller: generate-url
+    post:
+      description: Generates a short URL that will redirect to the given one
+      operationId: generate
       parameters:
-        - name: name
+        - name: url
           in: query
-          description: The name of the person to whom to say hello
-          required: false
+          description: The URL to be shortened
+          required: true
           type: string
       responses:
         "200":
           description: Success
           schema:
-            # a pointer to a definition
-            $ref: "#/definitions/HelloWorldResponse"
-        # responses may fall through to errors
+            $ref: "#/definitions/GenerateURLResponse"
+        default:
+          description: Error
+          schema:
+            $ref: "#/definitions/ErrorResponse"
+  /add-custom-url:
+    x-swagger-router-controller: add-custom-url
+    post:
+      description: Stores a custom URL to redirect to
+      operationId: addCustomURL
+      parameters:
+        - name: url
+          in: query
+          description: The URL to be shortened
+          required: true
+          type: string
+        - name: customPath
+          in: query
+          description: The custom path for the new URL
+          required: true
+          type: string
+      responses:
+        "200":
+          description: Success
+          schema:
+            $ref: "#/definitions/GenerateURLResponse"
+        default:
+          description: Error
+          schema:
+            $ref: "#/definitions/ErrorResponse"
+  /stats:
+    x-swagger-router-controller: stats
+    get:
+      description: Get stats for a given path
+      operationId: stats
+      parameters:
+        - name: path
+          in: query
+          description: The path to get stats for
+          required: true
+          type: string
+      responses:
+        "200":
+          description: Success
+          schema:
+            $ref: "#/definitions/StatsResponse"
+        default:
+          description: Error
+          schema:
+            $ref: "#/definitions/ErrorResponse"
+  /go/{path}:
+    x-swagger-router-controller: redirect
+    get:
+      description: Redirects to the URL stored for the given path
+      operationId: redirect
+      parameters:
+        - name: path
+          in: path
+          description: The short path mapped to a url
+          required: true
+          type: string
+      responses:
         default:
           description: Error
           schema:
@@ -44,12 +96,24 @@ paths:
     x-swagger-pipe: swagger_raw
 # complex objects have schema definitions
 definitions:
-  HelloWorldResponse:
+  GenerateURLResponse:
     required:
-      - message
+      - shortURL
     properties:
-      message:
+      shortURL:
         type: string
+  StatsResponse:
+    required:
+      - createdDate
+      - totalViews
+      - viewsPerDay
+    properties:
+      createdDate:
+        type: string
+      totalViews:
+        type: integer
+      viewsPerDay:
+        type: object
   ErrorResponse:
     required:
       - message

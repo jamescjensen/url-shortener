@@ -1,25 +1,25 @@
 {
-  "name": "service-project-scaffholding",
+  "name": "url-shortener",
   "version": "0.0.1",
   "private": true,
-  "description": "New Swagger API Project",
+  "description": "URL Shortener",
   "keywords": [],
   "author": "",
   "license": "",
   "main": "app.js",
   "dependencies": {
     "config": "^3.2.4",
+    "db-migrate": "^0.11.6",
+    "db-migrate-pg": "^1.0.0",
     "express": "^4.17.1",
+    "pg": "^7.12.1",
+    "randomstring": "^1.1.5",
     "swagger-tools": "^0.10.4"
   },
   "devDependencies": {
-    "eslint": "^6.6.0",
-    "eslint-config-google": "^0.14.0",
-    "should": "^13.2.3",
-    "supertest": "^4.0.2"
+    "eslint": "^6.6.0"
   },
   "scripts": {
-    "start": "node app.js",
-    "test": "swagger project test"
+    "start": "node app.js"
   }
 }

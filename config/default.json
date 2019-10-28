@@ -35,5 +35,14 @@
       }
     }
   },
-  "port": 8080
+  "hostname": "localhost",
+  "port": 8080,
+  "dockerPort": null,
+  "postgres": {
+    "user": "postgres",
+    "password": "password",
+    "host": "192.168.2.2",
+    "port": "5432",
+    "database": "url-shortener"
+  }
 }

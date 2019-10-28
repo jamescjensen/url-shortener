@@ -1,0 +1,10 @@
+{
+  "dev": {
+    "driver": "pg",
+    "user": "postgres",
+    "password": "password",
+    "host": "192.168.2.2",
+    "database": "url-shortener",
+    "schema": "my_schema"
+  }
+}
